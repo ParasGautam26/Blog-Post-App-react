@@ -26,7 +26,7 @@ export const updatePost = createAsyncThunk('posts/updatePost', async (initialPos
         const response = await axios.put(`${POSTS_URL}/${id}`, initialPost)
         return response.data
     } catch (err) {
-        //return err.message;
+      
         return initialPost; // only for testing Redux!
     }
 })
@@ -59,11 +59,7 @@ const postsSlice = createSlice({
                         date: new Date().toISOString(),
                         userId,
                         reactions: {
-                            thumbsUp: 0,
-                            wow: 0,
-                            heart: 0,
-                            rocket: 0,
-                            coffee: 0
+                            thumbsUp: 0
                         }
                     }
                 }
@@ -89,11 +85,7 @@ const postsSlice = createSlice({
                 const loadedPosts = action.payload.map(post => {
                     post.date = sub(new Date(), { minutes: min++ }).toISOString();
                     post.reactions = {
-                        thumbsUp: 0,
-                        wow: 0,
-                        heart: 0,
-                        rocket: 0,
-                        coffee: 0
+                        thumbsUp: 0
                     }
                     return post;
                 });
@@ -121,11 +113,7 @@ const postsSlice = createSlice({
                 action.payload.userId = Number(action.payload.userId)
                 action.payload.date = new Date().toISOString();
                 action.payload.reactions = {
-                    thumbsUp: 0,
-                    wow: 0,
-                    heart: 0,
-                    rocket: 0,
-                    coffee: 0
+                    thumbsUp: 0
                 }
                 console.log(action.payload)
                 state.posts.push(action.payload)
