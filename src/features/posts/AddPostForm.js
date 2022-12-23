@@ -9,7 +9,6 @@ const AddPostForm = () => {
 
     const navigate = useNavigate()
 
-    const [isActive, setActive] = useState(false);
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [addRequestStatus, setAddRequestStatus] = useState('idle')
@@ -18,16 +17,13 @@ const AddPostForm = () => {
     const onTitleChanged = e => setTitle(e.target.value)
     const onContentChanged = e => setContent(e.target.value)
     
-
     const canSave = [title, content].every(Boolean) && addRequestStatus === 'idle';
-
     const onSavePostClicked = () => {
+        
         if (canSave) {
-            try {
-                
+            try {       
                 setAddRequestStatus('pending')
                 dispatch(addNewPost({ title, body: content})).unwrap()
-                setActive(!isActive);
                 setTitle('')
                 setContent('')
                 navigate('/')
@@ -37,8 +33,8 @@ const AddPostForm = () => {
                 setAddRequestStatus('idle')
             }
         }
-
     }
+    
 
     
     return (
@@ -61,7 +57,7 @@ const AddPostForm = () => {
                     onChange={onContentChanged}
                 />
                 <button
-                    className={isActive ? 'savePost': null}
+                    className="savePost"
                     type="button"
                     onClick={onSavePostClicked}
                     disabled={!canSave}

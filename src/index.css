@@ -169,3 +169,8 @@ textarea {
     color: white;
     cursor: pointer;
 }
+
+.savePost:disabled {
+    background-color: grey;
+    cursor: default;
+}
