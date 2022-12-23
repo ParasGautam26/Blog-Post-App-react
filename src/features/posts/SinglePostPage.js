@@ -2,13 +2,17 @@ import { useSelector } from 'react-redux'
 import { selectPostById } from './postsSlice'
 import ReactionButtons from "./ReactionButtons";
 
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 
 const SinglePostPage = () => {
     const { postId } = useParams()
+    const navigate = useNavigate()
 
     const post = useSelector((state) => selectPostById(state, Number(postId)))
+
+    const onEditPostClicked = () => {
+        navigate(`/post/edit/${post.id}`)   
+    }
 
     if (!post) {
         return (
@@ -17,13 +21,18 @@ const SinglePostPage = () => {
             </section>
         )
     }
-
     return (
         <article>
             <h2>{post.title}</h2>
             <p>{post.body}</p>
             <p className="postCredit">
-                <Link to={`/post/edit/${post.id}`}>Edit Post</Link>
+                <button
+                    className="viewPost"
+                    type="button"
+                    onClick={onEditPostClicked}
+                >
+                    Edit Post
+                </button>
             </p>
             <ReactionButtons post={post} />
         </article>
